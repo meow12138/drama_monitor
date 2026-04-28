@@ -74,6 +74,43 @@ body {
   padding: 32px 0;
 }
 
+/* Element Plus primary color override */
+:root {
+  --el-color-primary: var(--zw-primary) !important;
+  --el-color-primary-light-3: #33cc9e !important;
+  --el-color-primary-light-5: #66d9b2 !important;
+  --el-color-primary-light-7: #99e6c7 !important;
+  --el-color-primary-light-8: #b3edd4 !important;
+  --el-color-primary-light-9: #e6f9f3 !important;
+  --el-color-primary-dark-2: #00996e !important;
+}
+
+/* Buttons */
+.el-button--primary {
+  --el-button-bg-color: var(--zw-primary) !important;
+  --el-button-border-color: var(--zw-primary) !important;
+  --el-button-hover-bg-color: #33cc9e !important;
+  --el-button-hover-border-color: #33cc9e !important;
+  --el-button-active-bg-color: #00996e !important;
+  --el-button-active-border-color: #00996e !important;
+}
+
+/* Tags */
+.el-tag {
+  --el-tag-bg-color: var(--zw-primary-bg) !important;
+  --el-tag-border-color: #b3edd4 !important;
+  --el-tag-text-color: var(--zw-primary) !important;
+}
+
+/* Links */
+a {
+  color: var(--zw-primary);
+}
+
+a:hover {
+  color: #33cc9e;
+}
+
 /* Table base overrides */
 .el-table {
   --el-table-border-color: rgb(242, 243, 245);
