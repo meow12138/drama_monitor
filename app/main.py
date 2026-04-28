@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import db
@@ -43,10 +43,8 @@ app.add_middleware(
 # API Routers
 app.include_router(api.router)
 
-# 前端页面（纯静态文件，无需Jinja2模板引擎）
-@app.get("/")
-async def index():
-    return FileResponse(BASE_DIR / "templates" / "index.html")
+# 前端静态文件
+app.mount("/", StaticFiles(directory=BASE_DIR / "static", html=True), name="static")
 
 
 @app.get("/health")

@@ -1,0 +1,21 @@
+:root {
+  --zw-gap: 16px;
+  --zw-header-height: 50px;
+  --zw-sider-width: 220px;
+  --zw-sider-collapsed-width: 64px;
+  --zw-filter-item-width: 180px;
+
+  --zw-text: #323335;
+  --zw-text-secondary: #86909c;
+  --zw-bg: #f0f2f5;
+  --zw-card-bg: #ffffff;
+  --zw-primary: #00bf8a;
+  --zw-primary-bg: #e6f9f3;
+  --zw-border: rgba(0, 0, 0, 0.06);
+
+  --el-color-primary: var(--zw-primary);
+  --el-color-success: #00b42a;
+  --el-color-warning: #ff7d00;
+  --el-color-danger: #f53f3f;
+  --el-color-info: #1677ff;
+}

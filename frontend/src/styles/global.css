@@ -1,0 +1,109 @@
+@import './variables.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--zw-bg);
+  font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  color: var(--zw-text);
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.el-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.el-card__header {
+  padding: var(--zw-gap);
+}
+
+.el-card__body {
+  padding: var(--zw-gap);
+}
+
+.el-button {
+  border-radius: 4px;
+}
+
+.el-input__wrapper,
+.el-select__wrapper,
+.el-date-editor .el-input__wrapper {
+  border-radius: 4px;
+}
+
+.el-dialog {
+  border-radius: 8px;
+}
+
+.el-dialog__header {
+  padding: 20px 24px 0;
+  margin-right: 0;
+}
+
+.el-dialog__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.el-dialog__body {
+  padding: 16px 24px;
+}
+
+.el-dialog__footer {
+  padding: 0 24px 20px;
+}
+
+.el-pagination {
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.el-empty {
+  padding: 32px 0;
+}
+
+/* Table base overrides */
+.el-table {
+  --el-table-border-color: rgb(242, 243, 245);
+  --el-table-header-bg-color: rgb(242, 243, 245);
+  --el-table-header-text-color: #323335;
+  --el-table-row-hover-bg-color: #f5f7fa;
+  border: none;
+}
+
+.el-table::before {
+  display: none;
+}
+
+.el-table .el-table__inner-wrapper::before {
+  display: none;
+}
+
+.el-table th.el-table__cell {
+  background-color: rgb(242, 243, 245);
+  color: #323335;
+  font-weight: 600;
+  font-size: 13px;
+  height: 40px;
+  padding: 0 12px;
+}
+
+.el-table td.el-table__cell {
+  border-bottom: 1px solid rgb(242, 243, 245);
+  border-right: none;
+  font-size: 13px;
+  height: 40px;
+  padding: 0 12px;
+}
