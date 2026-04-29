@@ -7,7 +7,6 @@ const PLATFORM_NAMES: Record<string, string> = {
   dramabox: 'DramaBox',
   reelshort: 'ReelShort',
   shortmax: 'ShortMax',
-  moboreader: 'MoboReader',
   flextv: 'FlexTV',
   serealplus: 'Sereal+',
   netshort: 'NetShort',
@@ -199,17 +198,6 @@ onUnmounted(() => {
       <el-breadcrumb-item :to="{ path: '/' }">监控首页</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <!-- Stats Cards -->
-    <el-row :gutter="16" class="stats-row">
-      <el-col v-for="item in platformStats" :key="item.key" :xl="6" :lg="6" :md="12" :sm="12" :xs="24">
-        <el-card shadow="never" class="stat-card">
-          <div class="stat-label">{{ item.name }}</div>
-          <div class="stat-value">{{ item.count }}</div>
-          <div class="stat-time">{{ item.last_updated ? new Date(item.last_updated).toLocaleDateString('zh-CN') : '' }}</div>
-        </el-card>
-      </el-col>
-    </el-row>
-
     <!-- Filter Card -->
     <el-card shadow="never" class="filter-card">
       <div class="filter-grid">
@@ -220,7 +208,6 @@ onUnmounted(() => {
             <el-option label="DramaBox" value="dramabox" />
             <el-option label="ReelShort" value="reelshort" />
             <el-option label="ShortMax" value="shortmax" />
-            <el-option label="MoboReader" value="moboreader" />
             <el-option label="FlexTV" value="flextv" />
             <el-option label="Sereal+" value="serealplus" />
             <el-option label="NetShort" value="netshort" />

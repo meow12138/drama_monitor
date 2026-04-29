@@ -1,6 +1,6 @@
 # 海外短剧爆款监控
 
-定时抓取 DramaBox、ReelShort、ShortMax、MoboReader、FlexTV、Sereal+ 六大海外短剧平台的爆款榜单数据。
+定时抓取 DramaBox、ReelShort、ShortMax、FlexTV、Sereal+ 等海外短剧平台的爆款榜单数据。
 
 ## 功能特性
 
@@ -102,7 +102,6 @@ drama_monitor/
 │   │   ├── dramabox.py
 │   │   ├── reelshort.py
 │   │   ├── shortmax.py
-│   │   ├── moboreader.py
 │   │   ├── flextv.py
 │   │   └── serealplus.py
 │   ├── services/

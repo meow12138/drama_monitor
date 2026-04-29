@@ -1,7 +1,6 @@
 from app.scrapers.dramabox import DramaBoxScraper
 from app.scrapers.reelshort import ReelShortScraper
 from app.scrapers.shortmax import ShortMaxScraper
-from app.scrapers.moboreader import MoboReaderScraper
 from app.scrapers.flextv import FlexTVScraper
 from app.scrapers.serealplus import SerealPlusScraper
 from app.scrapers.netshort import NetShortScraper
@@ -13,7 +12,6 @@ ALL_SCRAPERS = [
     DramaBoxScraper,
     ReelShortScraper,
     ShortMaxScraper,
-    MoboReaderScraper,
     FlexTVScraper,
     SerealPlusScraper,
     NetShortScraper,

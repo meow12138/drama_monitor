@@ -47,10 +47,6 @@ PLATFORMS = {
         "name": "ShortMax",
         "base_url": "https://www.shorttv.live",
     },
-    "moboreader": {
-        "name": "MoboReader",
-        "base_url": "https://www.moboreader.com",
-    },
     "flextv": {
         "name": "FlexTV",
         "base_url": "https://www.flextv.cc",

@@ -22,5 +22,7 @@ Thumbs.db
 *.log
 .playwright-mcp/
 
-# Database copies
+# Database
+data/
+*.db
 *.db.bak
