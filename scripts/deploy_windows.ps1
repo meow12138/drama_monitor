@@ -101,7 +101,13 @@ if (-not (Test-Path $nssmExe)) {
 # ------ Step 6: Register Windows service ------
 Write-Host "[6/7] Registering Windows service..." -ForegroundColor Yellow
 
+$ErrorActionPreference = "Continue"
 $status = & $nssmExe status $SERVICE_NAME 2>&1
+$ErrorActionPreference = "Stop"
+
+$uvicornExe = Join-Path $INSTALL_DIR "venv\Scripts\uvicorn.exe"
+$serviceLog = Join-Path $logsDir "service.log"
+$errorLog = Join-Path $logsDir "error.log"
 
 if ($status -match "SERVICE_RUNNING") {
     Write-Host "  Service is running, stopping first..."
@@ -109,15 +115,11 @@ if ($status -match "SERVICE_RUNNING") {
     Start-Sleep -Seconds 2
 }
 
-$uvicornExe = Join-Path $INSTALL_DIR "venv\Scripts\uvicorn.exe"
-$serviceLog = Join-Path $logsDir "service.log"
-$errorLog = Join-Path $logsDir "error.log"
-
-if ($status -notmatch "SERVICE_") {
+if ($status -match "SERVICE_") {
+    Write-Host "  Service exists, updating config"
+} else {
     & $nssmExe install $SERVICE_NAME $uvicornExe
     Write-Host "  Service registered"
-} else {
-    Write-Host "  Service exists, updating config"
 }
 
 & $nssmExe set $SERVICE_NAME AppParameters "app.main:app --host 0.0.0.0 --port $PORT"
@@ -150,7 +152,9 @@ Write-Host "Starting service..." -ForegroundColor Yellow
 & $nssmExe start $SERVICE_NAME
 Start-Sleep -Seconds 3
 
+$ErrorActionPreference = "Continue"
 $finalStatus = & $nssmExe status $SERVICE_NAME 2>&1
+$ErrorActionPreference = "Stop"
 if ($finalStatus -match "SERVICE_RUNNING") {
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Green
