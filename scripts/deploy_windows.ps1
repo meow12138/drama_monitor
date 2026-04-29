@@ -73,10 +73,11 @@ Write-Host "  依赖安装完成" -ForegroundColor Green
 # ------ Step 4: 创建日志目录 ------
 Write-Host "[4/7] 创建日志目录..." -ForegroundColor Yellow
 
-if (-not (Test-Path "$INSTALL_DIR\logs")) {
-    New-Item -ItemType Directory -Path "$INSTALL_DIR\logs" | Out-Null
+$logsDir = "$INSTALL_DIR\logs"
+if (-not (Test-Path $logsDir)) {
+    New-Item -ItemType Directory -Path $logsDir | Out-Null
 }
-Write-Host "  日志目录: $INSTALL_DIR\logs" -ForegroundColor Green
+Write-Host "  日志目录: $logsDir" -ForegroundColor Green
 
 # ------ Step 5: 下载 NSSM ------
 Write-Host "[5/7] 配置 NSSM 服务管理器..." -ForegroundColor Yellow
@@ -116,8 +117,8 @@ if ($status -notmatch "SERVICE_") {
 
 & $nssmExe set $SERVICE_NAME AppParameters "app.main:app --host 0.0.0.0 --port $PORT"
 & $nssmExe set $SERVICE_NAME AppDirectory $INSTALL_DIR
-& $nssmExe set $SERVICE_NAME AppStdout "$INSTALL_DIR\logs\service.log"
-& $nssmExe set $SERVICE_NAME AppStderr "$INSTALL_DIR\logs\error.log"
+& $nssmExe set $SERVICE_NAME AppStdout "$logsDir\service.log"
+& $nssmExe set $SERVICE_NAME AppStderr "$logsDir\error.log"
 & $nssmExe set $SERVICE_NAME AppRotateFiles 1
 & $nssmExe set $SERVICE_NAME AppRotateBytes 10485760
 & $nssmExe set $SERVICE_NAME DisplayName "Drama Monitor - 短剧爆款监控"
@@ -155,10 +156,10 @@ if ($finalStatus -match "SERVICE_RUNNING") {
     Write-Host "    查看状态: $nssmExe status $SERVICE_NAME" -ForegroundColor White
     Write-Host "    停止服务: $nssmExe stop $SERVICE_NAME" -ForegroundColor White
     Write-Host "    重启服务: $nssmExe restart $SERVICE_NAME" -ForegroundColor White
-    Write-Host "    查看日志: Get-Content $INSTALL_DIR\logs\service.log -Tail 50" -ForegroundColor White
+    Write-Host ('    查看日志: Get-Content ' + $INSTALL_DIR + '\logs\service.log -Tail 50') -ForegroundColor White
     Write-Host "========================================" -ForegroundColor Green
 } else {
     Write-Host ""
     Write-Host "  服务启动异常，请检查日志:" -ForegroundColor Red
-    Write-Host "    $INSTALL_DIR\logs\error.log" -ForegroundColor Red
+    Write-Host ('    ' + $INSTALL_DIR + '\logs\error.log') -ForegroundColor Red
 }
