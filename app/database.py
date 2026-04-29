@@ -365,6 +365,57 @@ class Database:
             )
         return items
 
+    async def get_cross_ranking(
+        self,
+        rank_type: str = "hot",
+        time_period: str = "today",
+        top_n: int = 20,
+    ) -> list[dict]:
+        """跨平台合并排名：按 play_num 降序取 Top N（仅含有真实播放量的记录）"""
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            sql = """
+                SELECT drama_name, platform, play_num, collect_num, score,
+                       rank_position, tags, link, cover_url
+                FROM rankings
+                WHERE rank_type = ? AND time_period = ?
+                  AND play_num IS NOT NULL AND play_num > 0
+                ORDER BY play_num DESC
+                LIMIT ?
+            """
+            async with conn.execute(sql, (rank_type, time_period, top_n)) as cursor:
+                return [dict(row) for row in await cursor.fetchall()]
+
+    async def get_platform_summary(
+        self,
+        rank_type: str = "hot",
+        time_period: str = "today",
+    ) -> list[dict]:
+        """各平台播放量汇总统计（仅含有真实播放量的记录）"""
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            sql = """
+                SELECT platform,
+                       SUM(play_num) as total_play,
+                       AVG(play_num) as avg_play,
+                       MAX(play_num) as max_play,
+                       COUNT(*) as drama_count
+                FROM rankings
+                WHERE rank_type = ? AND time_period = ?
+                  AND play_num IS NOT NULL AND play_num > 0
+                GROUP BY platform
+                ORDER BY total_play DESC
+            """
+            async with conn.execute(sql, (rank_type, time_period)) as cursor:
+                rows = await cursor.fetchall()
+                return [
+                    {
+                        **dict(row),
+                        "avg_play": round(row["avg_play"]) if row["avg_play"] else 0,
+                    }
+                    for row in rows
+                ]
+
     async def cleanup_snapshots(self, days_to_keep: int = 45) -> int:
         """清理过老的快照，避免 SQLite 持续膨胀"""
         cutoff = (datetime.utcnow() - timedelta(days=days_to_keep)).isoformat()

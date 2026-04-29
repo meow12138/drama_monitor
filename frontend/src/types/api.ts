@@ -43,3 +43,28 @@ export interface RankingsResponse {
   limit: number
   offset: number
 }
+
+export interface CrossRankingItem {
+  drama_name: string
+  platform: string
+  play_num: number
+  collect_num: number | null
+  score: number | null
+  rank_position: number
+  tags: string | null
+  link: string | null
+  cover_url: string | null
+}
+
+export interface PlatformSummaryItem {
+  platform: string
+  total_play: number
+  avg_play: number
+  max_play: number
+  drama_count: number
+}
+
+export interface CompareResponse {
+  cross_ranking: CrossRankingItem[]
+  platform_summary: PlatformSummaryItem[]
+}

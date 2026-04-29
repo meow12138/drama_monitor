@@ -1,4 +1,4 @@
-import type { DramaItem, PlatformInfo, RankingsResponse, StatsItem } from '@/types/api'
+import type { DramaItem, PlatformInfo, RankingsResponse, StatsItem, CompareResponse } from '@/types/api'
 
 const BASE_URL = ''
 
@@ -43,6 +43,18 @@ export function triggerFetch(): Promise<{ status: string; fetched_items: number 
 
 export function getSchedulerStatus(): Promise<{ status: string; scheduler: any }> {
   return request('/health')
+}
+
+export function getCompare(params: {
+  rank_type?: string
+  time_period?: string
+  top_n?: number
+}): Promise<CompareResponse> {
+  const qs = new URLSearchParams()
+  if (params.rank_type) qs.set('rank_type', params.rank_type)
+  if (params.time_period) qs.set('time_period', params.time_period)
+  if (params.top_n) qs.set('top_n', String(params.top_n))
+  return request<CompareResponse>(`/api/compare?${qs}`)
 }
 
 export function exportCsv(params: {

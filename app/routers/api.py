@@ -85,6 +85,21 @@ async def trigger_fetch():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/compare")
+async def get_compare(
+    rank_type: str = Query("hot", description="hot 或 rising"),
+    time_period: str = Query("today", description="today/week/month"),
+    top_n: int = Query(20, ge=1, le=100, description="跨平台总榜取前 N 条"),
+):
+    """跨平台播放量横向对比"""
+    cross_ranking = await db.get_cross_ranking(rank_type, time_period, top_n)
+    platform_summary = await db.get_platform_summary(rank_type, time_period)
+    return {
+        "cross_ranking": cross_ranking,
+        "platform_summary": platform_summary,
+    }
+
+
 @router.get("/scheduler/status")
 async def scheduler_status():
     """获取定时调度器状态"""

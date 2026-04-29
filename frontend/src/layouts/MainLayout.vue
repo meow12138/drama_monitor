@@ -18,6 +18,7 @@ function closeMobile() {
 
 const menuItems = [
   { path: '/', title: '监控首页', icon: 'DataLine' },
+  { path: '/compare', title: '跨平台对比', icon: 'TrendCharts' },
 ]
 </script>
 
